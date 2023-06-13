@@ -1,0 +1,4 @@
+FROM docker.io/library/ubuntu:22.04
+ 
+RUN apt-get update -y && apt-get install -y curl dnsutils iputils-ping
+COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
