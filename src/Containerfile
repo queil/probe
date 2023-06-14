@@ -1,9 +1,10 @@
 FROM docker.io/library/ubuntu:22.04
 
-RUN apt-get update -y && apt-get install -y gnupg software-properties-common curl dnsutils iputils-ping 
-
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-    add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/prod.list)"
-RUN apt-get update -y && apt-get install -y sqlcmd
+RUN apt-get update -y && apt-get install -y gnupg wget curl dnsutils iputils-ping && \
+    mkdir -p /etc/apt/keyrings/ && \
+    wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/keyrings/microsoft.gpg > /dev/null && \
+    echo "deb [arch=amd64,armhf,arm64 signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/ubuntu/20.04/prod focal main" | \
+    tee /etc/apt/sources.list.d/microsoft.list && \
+    apt-get update -y && apt-get install -y sqlcmd && apt-get remove -y gnupg wget && apt-get autoremove -y && apt-get clean -y
 
 COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
