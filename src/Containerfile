@@ -8,3 +8,7 @@ RUN apt-get update -y && apt-get install -y gnupg wget curl dnsutils iputils-pin
     apt-get update -y && apt-get install -y sqlcmd && apt-get remove -y gnupg wget && apt-get autoremove -y && apt-get clean -y
 
 COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
+
+EVN SQLCMDMAXVARTYPEWIDTH=65535 \
+    SQLCMDCOLSEP="," \
+    SQLCMDHEADERS=-1
