@@ -1,7 +1,9 @@
 FROM docker.io/library/ubuntu:22.04
 
+RUN apt-get update -y && apt-get install gnupg curl dnsutils iputils-ping 
+
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/prod.list)"
+RUN apt-get update -y && apt-get install -y sqlcmd
 
-RUN apt-get update -y && apt-get install -y curl dnsutils iputils-ping sqlcmd
 COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
