@@ -9,6 +9,6 @@ RUN apt-get update -y && apt-get install -y gnupg wget curl dnsutils iputils-pin
 
 COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
 
-EVN SQLCMDMAXVARTYPEWIDTH=65535 \
+ENV SQLCMDMAXVARTYPEWIDTH=65535 \
     SQLCMDCOLSEP="," \
     SQLCMDHEADERS=-1
