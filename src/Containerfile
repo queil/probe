@@ -1,6 +1,6 @@
 FROM docker.io/library/ubuntu:22.04
 
-RUN apt-get update -y && apt-get install -y gnupg curl dnsutils iputils-ping 
+RUN apt-get update -y && apt-get install -y gnupg software-properties-common curl dnsutils iputils-ping 
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/prod.list)"
