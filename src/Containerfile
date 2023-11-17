@@ -9,7 +9,7 @@ RUN apt-get update -y && apt-get install -y nano gnupg wget curl jq dnsutils ipu
 
 COPY --from=docker.io/fullstorydev/grpcurl:latest /bin/grpcurl /bin/grpcurl
 
-ARG NATS_VERSION=0.0.35
+ARG NATS_VERSION=0.1.1
 
 RUN curl -sSL https://github.com/nats-io/natscli/releases/download/v${NATS_VERSION}/nats-${NATS_VERSION}-amd64.deb -o nats.deb && \
     dpkg -i nats.deb && rm nats.deb
